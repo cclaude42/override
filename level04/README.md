@@ -28,7 +28,6 @@ Now, we need to replace `eip` with `system` and `eip+8` with `/bin/sh`, using th
 
 We use GDB and find the offset of `eip`, which is `156`. We're reading to try a `ret2libc`.
 
-
 ## **The command**
 
 We run the following command :
